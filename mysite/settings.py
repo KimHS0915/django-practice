@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     # local apps
+    'accounts',
     'instagram',
 ]
 
@@ -130,3 +131,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 INTERNAL_IPS = ['127.0.0.1']
+
