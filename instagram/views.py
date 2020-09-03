@@ -20,3 +20,7 @@ def post_detail(request, pk):
 	response.write("Hello Python, ")
 	response.write("Hello Django")
 	return response
+
+
+def archives_year(request, year):
+	return HttpResponse(f"{year} archives")
