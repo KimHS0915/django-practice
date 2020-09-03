@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
+
 from .models import Post
 
 # Create your views here.
@@ -11,3 +12,11 @@ def post_list(request):
 		'post_list': qs,
 		'q': q,
 	})
+
+
+def post_detail(request, pk):
+	response = HttpResponse()
+	response.write("Hello World, ")
+	response.write("Hello Python, ")
+	response.write("Hello Django")
+	return response
