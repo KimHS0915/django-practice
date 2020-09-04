@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 
 from .models import Post
 
@@ -15,11 +15,14 @@ def post_list(request):
 
 
 def post_detail(request, pk):
-	response = HttpResponse()
-	response.write("Hello World, ")
-	response.write("Hello Python, ")
-	response.write("Hello Django")
-	return response
+	post = get_object_or_404(Post, pk=pk)
+	# try:
+	# 	post = Post.objects.get(pk=pk)
+	# except Post.DoesNotExist:
+	# 	raise Http404
+	return render(request, 'instagram/post_detail.html', {
+		'post': post,
+	})
 
 
 def archives_year(request, year):
