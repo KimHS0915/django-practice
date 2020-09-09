@@ -26,7 +26,8 @@ SECRET_KEY = '=m(59n#wgble=+y(o)29)lu8(ajq4zn)s$^g6zg%=c1v(h0u(p'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'ff452aaf0056.ngrok.io'
+    'ff452aaf0056.ngrok.io',
+    '127.0.0.1',
 ]
 
 
@@ -132,6 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'mysite', 'static')
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
