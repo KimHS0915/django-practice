@@ -1,10 +1,25 @@
-from django.shortcuts import render, HttpResponse, get_object_or_404
+from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArchiveView
 # from django.contrib.auth.decorators import login_required
 # from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post
+from .forms import PostForm
+
+
+def post_new(request):
+	if request.method == 'POST':
+		form = PostForm(request.POST, request.FILES)
+		if form.is_valid():
+			post = form.save()
+			return redirect(post)
+	else:
+		form = PostForm()
+
+	return render(request, 'instagram/post_form.html', {
+		'form': form,
+	})
 
 
 # @login_required

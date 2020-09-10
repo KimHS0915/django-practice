@@ -9,7 +9,10 @@
     <form action="" method="get">
     	<input type="text" name="q" value="{{ q }}" />
     	<input type="submit" value="검색" />
-    </form>
+	</form>
+
+	<a href="{% url 'instagram:post_new' %}" class="btn btn-primary btn-block mt-2 mb-2">New</a>
+
     <table class="table table-bordered table-hover">
     	<tbody>
     		{% for post in post_list %}
