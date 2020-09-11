@@ -3,6 +3,7 @@ from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArc
 from django.contrib.auth.decorators import login_required
 # from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from .models import Post
 from .forms import PostForm
@@ -16,12 +17,14 @@ def post_new(request):
 			post = form.save(commit=False)
 			post.author = request.user
 			post.save()
+			messages.success(request, '작성 완료')
 			return redirect(post)
 	else:
 		form = PostForm()
 
 	return render(request, 'instagram/post_form.html', {
 		'form': form,
+		'post': None,
 	})
 
 
@@ -30,18 +33,21 @@ def post_edit(request, pk):
 	post = get_object_or_404(Post, pk=pk)
 
 	if post.author != request.user:
+		messages.error(request, '작성자만 수정 가능')
 		return redirect(post)
 
 	if request.method == 'POST':
 		form = PostForm(request.POST, request.FILES, instance=post)
 		if form.is_valid():
 			post = form.save()
+			messages.success(request, '수정 완료')
 			return redirect(post)
 	else:
 		form = PostForm(instance=post)
 
 	return render(request, 'instagram/post_form.html', {
 		'form': form,
+		'post': post,
 	})
 
 
@@ -51,6 +57,9 @@ def post_edit(request, pk):
 # 	q = request.GET.get('q', '')
 # 	if q:
 # 		qs = qs.filter(message__icontains=q)
+	
+# 	messages.info(request, 'message')
+
 # 	return render(request, 'instagram/post_list.html', {
 # 		'post_list': qs,
 # 		'q': q,
