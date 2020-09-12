@@ -51,6 +51,19 @@ def post_edit(request, pk):
 	})
 
 
+@login_required
+def post_delete(request, pk):
+	post = get_object_or_404(Post, pk=pk)
+	if request.method == 'POST':
+		post.delete()
+		messages.success(request, '삭제 완료')
+		return redirect('instagram:post_list')
+	return render(request, 'instagram/post_confirm_delete.html', {
+		'post': post,
+	})
+
+
+
 # @login_required
 # def post_list(request):
 # 	qs = Post.objects.all()
